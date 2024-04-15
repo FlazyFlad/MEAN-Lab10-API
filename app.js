@@ -12,7 +12,7 @@ db.once('open', () => console.log('Connected to Database'))
 
 app.use(express.json())
 app.use(cors({
-    origin: 'https://mean-lab10-front.vercel.app'
+    origin: 'http://mean-lab10-front.vercel.app'
   }));
 
 const subscribersRouter = require('./routes/subscribers')

@@ -2,6 +2,7 @@ const request = require('supertest');
 const chai = require('chai');
 const expect = chai.expect;
 const app = require('../app');
+const { sendTelegramMessage } = require('../telegram');
 const User = require('../models/user');
 
 describe('POST /login', () => {
@@ -13,6 +14,7 @@ describe('POST /login', () => {
     expect(res.statusCode).to.equal(200);
     expect(res.body).to.have.property('accessToken');
     expect(res.body).to.have.property('refreshToken');
+    sendTelegramMessage('511790458', 'Express First test passed successfully!');
   }).timeout(10000);
 
   it('should return 401 with incorrect credentials', async () => {
@@ -22,6 +24,7 @@ describe('POST /login', () => {
 
     expect(res.statusCode).to.equal(401);
     expect(res.body).to.have.property('message', 'Пользователь не найден');
+    sendTelegramMessage('511790458', 'Express Second test passed successfully!');
   });
 
   it('should return 401 with incorrect password', async () => {
@@ -31,6 +34,7 @@ describe('POST /login', () => {
 
     expect(res.statusCode).to.equal(401);
     expect(res.body).to.have.property('message', 'Пароль не верный');
+    sendTelegramMessage('511790458', 'Express Third test passed successfully!');
   });
 
   it('should return 400 with possible sql injection', async () => {
@@ -40,5 +44,6 @@ describe('POST /login', () => {
 
     expect(res.statusCode).to.equal(400);
     expect(res.body).to.have.property('message', 'В пароле содержится опасные символы (возможная SQL-инъекция)');
+    sendTelegramMessage('511790458', 'Express Fourth test passed successfully!');
   });
 });
