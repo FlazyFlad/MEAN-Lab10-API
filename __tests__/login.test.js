@@ -5,40 +5,40 @@ const app = require('../app');
 const User = require('../models/user');
 
 describe('POST /login', () => {
-  // it('should authenticate user with correct credentials', async () => {
-  //   const res = await request(app)
-  //     .post('/users/login')
-  //     .send({ email: 'john@gmail.com', password: '123456' });
+  it('should authenticate user with correct credentials', async () => {
+    const res = await request(app)
+      .post('/users/login')
+      .send({ email: 'john@gmail.com', password: '123456' });
 
-  //   expect(res.statusCode).to.equal(200);
-  //   expect(res.body).to.have.property('accessToken');
-  //   expect(res.body).to.have.property('refreshToken');
-  // });
+    expect(res.status).to.equal(200);
+    expect(res.body).to.have.property('accessToken');
+    expect(res.body).to.have.property('refreshToken');
+  });
 
   it('should return 401 with incorrect credentials', async () => {
     const res = await request(app)
       .post('/users/login')
       .send({ email: 'test@example.com', password: 'wrongpassword' });
 
-    expect(res.statusCode).to.equal(401);
-    expect(res.body).to.have.property('message', 'Пользователь не найден');
+    expect(res.status).to.equal(401);
+    expect(res.body).to.have.property('message', 'User not found');
   });
 
-  // it('should return 401 with incorrect password', async () => {
-  //   const res = await request(app)
-  //     .post('/users/login')
-  //     .send({ email: 'john@gmail.com', password: 'wrongpassword' });
+  it('should return 401 with incorrect password', async () => {
+    const res = await request(app)
+      .post('/users/login')
+      .send({ email: 'john@gmail.com', password: 'wrongpassword' });
 
-  //   expect(res.statusCode).to.equal(401);
-  //   expect(res.body).to.have.property('message', 'Пароль не верный');
-  // });
+    expect(res.status).to.equal(401);
+    expect(res.body).to.have.property('message', 'Incorrect password');
+  });
 
-  it('should return 400 with possible sql injection', async () => {
+  it('should return 400 with possible SQL injection attempt', async () => {
     const res = await request(app)
       .post('/users/login')
       .send({ email: 'user2@gmail.com', password: '$select * from$' });
 
-    expect(res.statusCode).to.equal(400);
-    expect(res.body).to.have.property('message', 'В пароле содержится опасные символы (возможная SQL-инъекция)');
+    expect(res.status).to.equal(400);
+    expect(res.body).to.have.property('message', 'Password contains dangerous characters (possible SQL injection)');
   });
 });
