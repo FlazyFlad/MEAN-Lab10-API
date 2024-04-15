@@ -9,8 +9,7 @@ const { RateLimiterMongo } = require('rate-limiter-flexible');
 
 const maxLoginAttempts = 5;
 const lockoutTime = 10;
-const mongoConnectionString = 'mongodb://localhost:27017/2task';
-const limiter = new RateLimiterMongo({ // Создание ограничителя на основе MongoDB
+const limiter = new RateLimiterMongo({
   storeClient: mongoose.connection,
   points: maxLoginAttempts,
   duration: lockoutTime,
