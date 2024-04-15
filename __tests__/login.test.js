@@ -8,7 +8,7 @@ describe('POST /login', () => {
   it('should authenticate user with correct credentials', async () => {
     const res = await request(app)
       .post('/users/login')
-      .send({ email: 'user2@gmail.com', password: '123456' });
+      .send({ email: 'john@gmail.com', password: '123456' });
 
     expect(res.statusCode).to.equal(200);
     expect(res.body).to.have.property('accessToken');
@@ -27,7 +27,7 @@ describe('POST /login', () => {
   it('should return 401 with incorrect password', async () => {
     const res = await request(app)
       .post('/users/login')
-      .send({ email: 'user2@gmail.com', password: 'wrongpassword' });
+      .send({ email: 'john@gmail.com', password: 'wrongpassword' });
 
     expect(res.statusCode).to.equal(401);
     expect(res.body).to.have.property('message', 'Пароль не верный');
