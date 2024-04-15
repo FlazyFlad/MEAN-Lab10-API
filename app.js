@@ -12,7 +12,7 @@ db.once('open', () => console.log('Connected to Database'))
 
 app.use(express.json())
 app.use(cors({
-    origin: process.env.CLIENT_API || 'http://localhost:4200'
+    origin: process.env.CLIENT_URI
   }));
 
 const subscribersRouter = require('./routes/subscribers')
