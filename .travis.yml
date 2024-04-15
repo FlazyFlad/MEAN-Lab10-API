@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "18"
+  - "14"
 
 services:
   - mongodb
@@ -8,6 +8,9 @@ services:
 cache:
   directories:
     - "node_modules"
+
+before_install:
+  - npm config set progress false
 
 install:
   - npm install
